@@ -1,45 +1,51 @@
-# 221RDB453 Vladislavs Senevičs 11.grupa
-import numpy as np
 import sys
 import threading
-def bob_builder(n, var):
-    tree = np.zeros((n, n), dtype=bool)
-    root = None
-    for i, parent in enumerate(var):
-        if parent != -1:
-            tree[parent][i] = True
-        else:
-            root = i
-    return tree, root
-def compute_height(tree, root):
-    queue = [(root, 1)]
-    max = 0
-    while queue:
-        node, height = queue.pop(0)
-        max = np.max([max, height])
-        children = np.where(tree[node] == True)[0]
-        queue.extend([(child, height + 1) for child in children])
-    return max
+import numpy as np
+
+def build_tree(n, parents):
+    tree = {}
+    index = 0
     
+    for i in range(n):
+        tree[i] = []
+    
+    for i, parent in enumerate(parents):
+        if parent != -1:
+            tree[parent].append(i)
+        else:
+            index = i
+            
+    return tree, index
+
+def compute_height(tree, index):
+    tree = [(index, 1)]
+    max = 0
+    while tree:
+        node, height = tree.pop(0)
+        max = max(max, height)
+        for child in tree[node]:
+            tree.append((child, height+1))
+            
+    return max
+
 def main():
-    input_str = input().strip()
-    if input_str == "F":
-        file = input().strip()
-        if file == "a":
-            return
-        with open(f"./test/{file}", mode="r") as file:
-            data = np.loadtxt(file, dtype=np.int32)
-            n = data[0]
-            parents = data[1:]
-    elif input_str == "I":
-        n, *parents = map(int, input().strip().split())
-        parents = np.array(parents)
+    obama = input().strip()
+    if (obama == "I" ):
+        n = int(input())
+        parents = list(map(int, input().split()))
+        height = compute_height(n, parents)
+    elif (obama == "F"):
+        num = input()
+        with open(f"test/{num}", "r") as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
+            tree, index = build_tree(n, parents)
+            height = compute_height(tree, index)
     else:
         return
 
-    tree, root = bob_builder(n, parents)
-    print(compute_height(tree, root))
+    print(height)
 
-sys.setrecursionlimit(10 ** 7)
-threading.stack_size(2 ** 27)
-threading.Thread(target=main).start()
+    sys.setrecursionlimit(10**7) 
+    threading.stack_size(2**27) 
+    threading.Thread(target=main).start()
