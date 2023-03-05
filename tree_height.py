@@ -3,46 +3,43 @@ import sys
 import threading
 
 def bob_builder(n, var):
-    tree = [[] for _ in range(n)]
+    tree = np.zeros((n, n), dtype=bool)
     root = None
-
     for i, parent in enumerate(var):
         if parent != -1:
-            tree[parent].append(i)
+            tree[parent][i] = True
         else:
             root = i
-
     return tree, root
 
-def compute_height(n, var):
-    if len(var) == 0:
-        return 0
-    root = np.where(var == -1)[0][0]
-    tree = [[] for _ in range(len(var))]
-    for i, parent in enumerate(var):
-        if parent != -1:
-            tree[parent].append(i)
+def compute_height(tree, root):
+    queue = [(root, 1)]
+    max = 0
+    while queue:
+        node, height = queue.pop(0)
+        max = np.max([max, height])
+        children = np.where(tree[node] == True)[0]
+        queue.extend([(child, height + 1) for child in children])
+    return max
 
-    def height(node):
-        children = tree[node]
-        if not children:
-            return 1
-        return 1 + np.max([height(child) for child in children])
-    return height(root)
 
 def main():
-    inputz = input()
-    if "F" in inputz:
-        name = input().strip()
-        with open("test/" + name) as file:
-            n, *parents = map(int, file.readline().split())
-            parents = np.array(parents)
-            print(compute_height(n, parents))
+    input = input().strip()
+    if input == "I":
+        n, *var = map(int, input().strip().split())
+        var = np.array(var)
+    else:
+        return
+    if input == "F":
+        file = input().strip()
+        if file == "a":
+            return
+        with open(f"./test/{file}", mode="r") as obama:
+            n, *var = map(int, obama.read().split())
+            var = np.array(var)
 
-    elif "I" in inputz:
-        n, *parent = map(int, input().split())
-        parent = np.array(parent)
-        print(compute_height(n, parent))
+    tree, root = bob_builder(n, var)
+    print(compute_height(tree, root))
 
 sys.setrecursionlimit(10 ** 7)
 threading.stack_size(2 ** 27)
