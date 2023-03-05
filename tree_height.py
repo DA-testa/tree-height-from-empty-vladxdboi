@@ -29,19 +29,19 @@ def compute_height(tree, root):
 
 
 def main():
-    input_str = input().strip()
-    if input_str == "F":
+    input = input().strip()
+    if input == "I":
+        n, *var = map(int, input().strip().split())
+        var = np.array(var)
+    else:
+        return
+    if input == "F":
         file = input().strip()
         if file == "a":
             return
         with open(f"./test/{file}", mode="r") as obama:
             n, *var = map(int, obama.read().split())
             var = np.array(var)
-    elif input_str == "I":
-        n, *var = map(int, input().strip().split())
-        var = np.array(var)
-    else:
-        return
 
     tree, root = bob_builder(n, var)
     print(compute_height(tree, root))
