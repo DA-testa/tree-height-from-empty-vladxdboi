@@ -1,6 +1,21 @@
-import numpy as np
 import sys
 import threading
+import numpy as np
+
+
+def compute_height(n, parents):
+    depth = [-1] * n
+
+    def height(node):
+        if depth[node] != -1:
+            return depth[node]
+        depth[node] = 1 + height(parents[node]) if parents[node] != -1 else 1
+    return depth[node]
+
+    for i in range(n):
+        height(i)
+
+    return max(depth)
 
 def bob_builder(n, var):
     tree = np.zeros((n, n), dtype=bool)
@@ -14,39 +29,26 @@ def bob_builder(n, var):
 
     return tree, root
 
-
-def compute_height(tree, root):
-    queue = [(root, 1)]
-    max = 0
-
-    while queue:
-        node, height = queue.pop(0)
-        max = np.max([max, height])
-        children = np.where(tree[node] == True)[0]
-        queue.extend([(child, height + 1) for child in children])
-
-    return max
-
-
 def main():
-    input_str = input().strip()
-    if input_str == "F":
-        file = input().strip()
-        if file == "a":
-            return
-        with open(f"./test/{file}", mode="r") as obama:
-            n, *var = map(int, obama.read().split())
-            var = np.array(var)
-    elif input_str == "I":
-        n, *var = map(int, input().strip().split())
-        var = np.array(var)
+    obamium = input().strip()
+    if obamium == "I":
+        n = int(input())
+        parents = list(map(int, input().split()))
+        tree, root = bob_builder(n, parents)
+        height = compute_height(n, parents)
+    elif obamium == "F":
+        test_number = input()
+        with open(f"test/{test_number}", "r") as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
+            tree, root = bob_builder(n, parents)
+            height = compute_height(n, parents)
     else:
         return
 
-    tree, root = bob_builder(n, var)
-    print(compute_height(tree, root))
+    print(height)
 
 
-sys.setrecursionlimit(10 ** 7)
-threading.stack_size(2 ** 27)
+sys.setrecursionlimit(10**7)
+threading.stack_size(2**27)
 threading.Thread(target=main).start()
