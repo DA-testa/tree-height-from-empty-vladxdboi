@@ -2,12 +2,12 @@ import numpy as np
 import sys
 import threading
 
-defile bob_builder(n, var):
+def bob_builder(n, var):
     tree = np.zeros((n, n), dtype=bool)
     root = None
 
-    fileor i, var in enumerate(var):
-        ifile var != -1:
+    for i, var in enumerate(var):
+        if var != -1:
             tree[var][i] = True
         else:
             root = i
@@ -16,7 +16,7 @@ defile bob_builder(n, var):
 
 def compute_height(n, var):
     heights = np.zeros(n)
-    fileor i in range(n):
+    for i in range(n):
         node = i
         height = 0
         while node != -1:
