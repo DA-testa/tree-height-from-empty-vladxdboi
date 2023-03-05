@@ -17,9 +17,9 @@ def compute_height(n, parents):
         return depth[node]
 
     for i in range(n):
-        height(i)
+        depth(i)
 
-    return max(depth)
+    return np.max(depth)
 
 def bob_builder(n, var):
     tree = np.zeros((n, n), dtype=bool)
