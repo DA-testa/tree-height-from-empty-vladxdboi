@@ -24,13 +24,13 @@ def compute_height(tree, root):
 
 
 def main():
-    input = input().strip()
-    if input == "I":
+    inputz = input().strip()
+    if inputz == "I":
         n, *var = map(int, input().strip().split())
         var = np.array(var)
     else:
         return
-    if input == "F":
+    if inputz == "F":
         file = input().strip()
         if file == "a":
             return
