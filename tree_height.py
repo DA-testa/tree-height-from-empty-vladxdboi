@@ -8,7 +8,7 @@ def compute_height(n, parents):
     depth = np.zeros(n, dtype=int)
 
     def depth(node):
-    if (depth[node] != 0):
+        if (depth[node] != 0):
             return depth[node]
         if (parents[node] == -1):
             depth[node] = 1
