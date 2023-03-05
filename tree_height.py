@@ -2,50 +2,42 @@ import numpy as np
 import sys
 import threading
 
-def bob_builder(n, var):
+defile bob_builder(n, var):
     tree = np.zeros((n, n), dtype=bool)
     root = None
 
-    for i, parent in enumerate(var):
-        if parent != -1:
-            tree[parent][i] = True
+    fileor i, var in enumerate(var):
+        ifile var != -1:
+            tree[var][i] = True
         else:
             root = i
 
     return tree, root
 
+def compute_height(n, var):
+    heights = np.zeros(n)
+    fileor i in range(n):
+        node = i
+        height = 0
+        while node != -1:
+            if heights[node] != 0:
+                height += heights[node]
+                break
+            height += 1
+            node = var[node]
+        heights[i] = height
+    return int(max(heights))
 
-def compute_height(tree, root):
-    queue = [(root, 1)]
-    max = 0
-
-    while queue:
-        node, height = queue.pop(0)
-        max = np.max([max, height])
-        children = np.where(tree[node] == True)[0]
-        queue.extend([(child, height + 1) for child in children])
-
-    return max
-
-
-def main():
-    inputs = input().strip()
-    if inputs == "F":
-        file = input().strip()
-        if file == "a":
-            return
-        with open(f"./test/{file}", mode="r") as obama:
-            n, *var = map(int, obama.read().split())
-            var = np.array(var)
-    elif inputs == "I":
-        n, *var = map(int, input().strip().split())
-        var = np.array(var)
-    else:
-        return
-
-    tree, root = bob_builder(n, var)
-    print(compute_height(tree, root))
-
+obama = input()
+if "F" in obama:
+    with open("test/" + input().strip()) as file:
+        n = int(file.readline())
+        vars = np.fromstring(file.readline(), dtype=int, sep=" ")
+        print(compute_height(n, vars))
+elif "I" in obama:
+    n = int(input())
+    var = np.fromstring(input(), dtype=int, sep=" ")
+    print(compute_height(n, var))
 
 sys.setrecursionlimit(10 ** 7)
 threading.stack_size(2 ** 27)
