@@ -3,36 +3,35 @@ import threading
 import numpy as np
 
 
-def height(n, parents):
+def compute_height(n, parents):
     parents = np.array(parents)
-    meow = np.zeros(n, dtype=int)
+    depth = np.zeros(n, dtype=int)
 
-    def depth(node):
-        if meow[node] != 0:
-            return meow[node]
+    def depthium(node):
+        if (depth[node] != 0):
+            return depth[node]
+        if (parents[node] == -1):
+            depth[node] = 1
         else:
-            if parents[node] == -1:
-                meow[node] = 1
-            else:
-                meow[node] = 1 + depth(parents[node])
-            return meow[node]
+            depth[node] = 1 + depthium(parents[node])
+        return depth[node]
     
     for i in range(n):
-        meow(i)
+        depthium(i)
 
-    return np.max(meow)
+    return np.max(depth)
 def main():
-    obama = input().strip()
-    if (obama == "I" ):
+    obamium = input().strip()
+    if (obamium == "I" ):
         n = int(input())
         parents = list(map(int, input().split()))
-        height = height(n, parents)
-    elif (obama == "F"):
+        height = compute_height(n, parents)
+    elif (obamium == "F"):
         test_number = input()
         with open(f"test/{test_number}", "r") as file:
             n = int(file.readline().strip())
             parents = list(map(int, file.readline().strip().split()))
-            height = height(n, parents)
+            height = compute_height(n, parents)
     else:
         return
 
