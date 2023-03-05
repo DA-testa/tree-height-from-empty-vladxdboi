@@ -15,6 +15,8 @@ def bob_builder(n, var):
     return tree, root
 
 def compute_height(n, var):
+    if len(var) == 0:
+        return 0
     root = np.where(var == -1)[0][0]
     tree = [[] for _ in range(len(var))]
     for i, parent in enumerate(var):
