@@ -3,12 +3,12 @@ import sys
 import threading
 
 def bob_builder(n, var):
-    tree = np.zeros((n, n), dtype=bool)
+    tree = [[] for _ in range(n)]
     root = None
 
-    for i, var in enumerate(var):
-        if var != -1:
-            tree[var][i] = True
+    for i, parent in enumerate(var):
+        if parent != -1:
+            tree[parent].append(i)
         else:
             root = i
 
