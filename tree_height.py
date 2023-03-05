@@ -3,7 +3,7 @@ import threading
 import numpy as np
 
 
-def compute_height(n, parents):
+def height(n, parents):
     depth = [0] * n
 
     def depthium(node):
@@ -20,17 +20,15 @@ def compute_height(n, parents):
 def main():
     obamium = input().strip()
     if obamium == "I":
-        n = int(input())
-        parents = list(map(int, input().split()))
+        n, *parents = map(int, input().split())
     elif obamium == "F":
         test_number = input()
         with open(f"test/{test_number}", "r") as file:
-            n = int(file.readline().strip())
-            parents = list(map(int, file.readline().strip().split()))
+            n, *parents = map(int, file.readline().strip().split())
     else:
         return
 
-    height = compute_height(n, parents)
+    height = height(n, parents)
     print(height)
 
 sys.setrecursionlimit(10**7)
