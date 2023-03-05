@@ -1,33 +1,37 @@
-# python3
-
+# 221RDB453 Vladislavs Senevičs, 11.grupa
 import sys
 import threading
-import numpy
 
+def cheight(n, parents):
+    depth = [0] * n
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
+    def depthium(node):
+        if depth[node] != 0:
+            return depth[node]
+        depth[node] = 1 + depthium(parents[node]) if parents[node] != -1 else 1
+        return depth[node]
+    
+    for i in range(n):
+        depthium(i)
 
+    return max(depth)
 
 def main():
-    # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    obamium = input().strip()
+    if obamium == "I":
+        n = int(input())
+        parents = list(map(int, input().split()))
+    elif obamium == "F":
+        num = input()
+        with open(f"test/{num}", "r") as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
+    else:
+        return
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
+    height = cheight(n, parents)
+    print(height)
+
+sys.setrecursionlimit(10**7)
+threading.stack_size(2**27)
 threading.Thread(target=main).start()
-main()
-# print(numpy.array([1,2,3]))
