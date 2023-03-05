@@ -4,8 +4,7 @@ import numpy as np
 
 
 def compute_height(n, parents):
-    parents = np.array(parents)
-    depth = np.zeros(n, dtype=int)
+    depth = [0] * n
 
     def depthium(node):
         if depth[node] != 0:
@@ -16,7 +15,8 @@ def compute_height(n, parents):
     for i in range(n):
         depthium(i)
 
-    return np.max(depth)
+    return max(depth)
+
 def main():
     obamium = input().strip()
     if (obamium == "I" ):
