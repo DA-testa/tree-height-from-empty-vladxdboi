@@ -10,7 +10,7 @@ def compute_height(n, parents):
         if depth[node] != -1:
             return depth[node]
         depth[node] = 1 + height(parents[node]) if parents[node] != -1 else 1
-    return depth[node]
+    return depth
 
     for i in range(n):
         height(i)
