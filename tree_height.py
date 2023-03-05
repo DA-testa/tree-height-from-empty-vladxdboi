@@ -22,15 +22,15 @@ def compute_height(tree, index):
     return max
 
 def main():
-    input = input().strip()
-    if input == "F":
-        file_name = input().strip()
+    bacilus = input()
+    if bacilus == "F":
+        file_name = input()
         if "a" in file_name:
             return
         with open(f"./test/{file_name}", mode="r") as file:
             n, *var = map(int, file.read().split())
             var = np.array(var)
-    elif input == "I":
+    elif bacilus == "I":
         n, *var = map(int, input().split())
         var = np.array(var)
     else:
