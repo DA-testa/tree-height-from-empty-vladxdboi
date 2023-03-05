@@ -8,14 +8,14 @@ def height(n, parents):
     meow = np.zeros(n, dtype=int)
 
     def depth(node):
-    if meow[node] != 0:
-        return meow[node]
-    else:
-        if parents[node] == -1:
-            meow[node] = 1
+        if meow[node] != 0:
+            return meow[node]
         else:
-            meow[node] = 1 + depth(parents[node])
-        return meow[node]
+            if parents[node] == -1:
+                meow[node] = 1
+            else:
+                meow[node] = 1 + depth(parents[node])
+            return meow[node]
     
     for i in range(n):
         meow(i)
