@@ -22,9 +22,9 @@ def compute_height(tree, index):
     return max
 
 def main():
-    input = input()
+    input = input().strip()
     if input == "F":
-        file_name = input()
+        file_name = input().strip()
         if "a" in file_name:
             return
         with open(f"./test/{file_name}", mode="r") as file:
