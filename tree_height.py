@@ -2,6 +2,18 @@ import numpy as np
 import sys
 import threading
 
+def bob_builder(n, var):
+    tree = [[] for _ in range(n)]
+    root = None
+
+    for i, parent in enumerate(var):
+        if parent != -1:
+            tree[parent].append(i)
+        else:
+            root = i
+
+    return tree, root
+
 def compute_height(n, var):
     root = np.where(var == -1)[0][0]
     tree, _ = bob_builder(n, var)
@@ -12,15 +24,6 @@ def compute_height(n, var):
             return 1
         return 1 + np.max([height(child) for child in children])
     return height(root)
-
-def compute_height(n, var):
-    if len(var) == 0:
-        return 0
-    root = np.where(var == -1)[0][0]
-    tree = [[] for _ in range(len(var))]
-    for i, parent in enumerate(var):
-        if parent != -1:
-            tree[parent].append(i)
 
 def main():
     inputz = input()
