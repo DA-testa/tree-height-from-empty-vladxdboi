@@ -3,7 +3,7 @@ import threading
 import numpy as np
 
 
-def height(n, parents):
+def cheight(n, parents):
     depth = [0] * n
 
     def depthium(node):
@@ -28,7 +28,7 @@ def main():
     else:
         return
 
-    height = height(n, parents)
+    height = cheight(n, parents)
     print(height)
 
 sys.setrecursionlimit(10**7)
