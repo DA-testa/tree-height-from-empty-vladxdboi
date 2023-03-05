@@ -4,13 +4,17 @@ import numpy as np
 
 
 def compute_height(n, parents):
-    depth = [-1] * n
+    parents = np.array(parents)
+    depth = np.zeros(n, dtype=int)
 
-    def height(node):
-        if depth[node] != -1:
+    def depth(node):
+    if (depth[node] != 0):
             return depth[node]
-        depth[node] = 1 + height(parents[node]) if parents[node] != -1 else 1
-    return depth
+        if (parents[node] == -1):
+            depth[node] = 1
+        else:
+            depth[node] = 1 + depth(parents[node])
+        return depth[node]
 
     for i in range(n):
         height(i)
