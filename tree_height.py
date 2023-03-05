@@ -1,33 +1,50 @@
-# python3
-
+# 221RDB453 Vladislavs Senevičs 11.grupa
+import numpy as np
 import sys
 import threading
-import numpy
 
+def bob_builder(n, var):
+    tree = np.zeros((n, n), dtype=bool)
+    root = None
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
+    for i, parent in enumerate(var):
+        if parent != -1:
+            tree[parent][i] = True
+        else:
+            root = i
 
+    return tree, root
+
+def compute_height(tree, root):
+    queue = [(root, 1)]
+    max = 0
+
+    while queue:
+        node, height = queue.pop(0)
+        max = np.max([max, height])
+        children = np.where(tree[node] == True)[0]
+        queue.extend([(child, height + 1) for child in children])
+
+    return max
 
 def main():
-    # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    input_str = input().strip()
+    if input_str == "F":
+        file = input().strip()
+        if file == "a":
+            return
+        with open(f"./test/{file}", mode="r") as obama:
+            n, *var = map(int, obama.read().split())
+            var = np.array(var)
+    elif input_str == "I":
+        n, *var = map(int, input().strip().split())
+        var = np.array(var)
+    else:
+        return
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
+    tree, root = bob_builder(n, var)
+    print(compute_height(tree, root))
+
+sys.setrecursionlimit(10 ** 7)
+threading.stack_size(2 ** 27)
 threading.Thread(target=main).start()
-main()
-# print(numpy.array([1,2,3]))
