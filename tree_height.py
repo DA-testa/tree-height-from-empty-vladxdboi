@@ -1,9 +1,7 @@
 import sys
 import threading
-import numpy as np
 
-
-def cheight(n, parents):
+def compute_height(n, parents):
     depth = [0] * n
 
     def depthium(node):
@@ -20,15 +18,17 @@ def cheight(n, parents):
 def main():
     obamium = input().strip()
     if obamium == "I":
-        n, *parents = map(int, input().split())
+        n = int(input())
+        parents = list(map(int, input().split()))
     elif obamium == "F":
-        test_number = input()
-        with open(f"test/{test_number}", "r") as file:
-            n, *parents = map(int, file.readline().strip().split())
+        num = input()
+        with open(f"test/{num}", "r") as file:
+            n = int(file.readline().strip())
+            parents = list(map(int, file.readline().strip().split()))
     else:
         return
 
-    height = cheight(n, parents)
+    height = compute_height(n, parents)
     print(height)
 
 sys.setrecursionlimit(10**7)
