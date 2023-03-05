@@ -33,16 +33,17 @@ def main():
         file = input().strip()
         if file == "a":
             return
-        with open(f"./test/{file}", mode="r") as obama:
-            n, *var = map(int, obama.read().split())
-            var = np.array(var)
+        with open(f"./test/{file}", mode="r") as file:
+            data = np.loadtxt(file, dtype=np.int32)
+            n = data[0]
+            parents = data[1:]
     elif input_str == "I":
-        n, *var = map(int, input().strip().split())
-        var = np.array(var)
+        n, *parents = map(int, input().strip().split())
+        parents = np.array(parents)
     else:
         return
-
-    tree, root = bob_builder(n, var)
+    
+    tree, root = bob_builder(n, parents)
     print(compute_height(tree, root))
 
 sys.setrecursionlimit(10 ** 7)
