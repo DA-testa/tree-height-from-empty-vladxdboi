@@ -19,19 +19,18 @@ def compute_height(n, parents):
 
 def main():
     obamium = input().strip()
-    if (obamium == "I" ):
+    if obamium == "I":
         n = int(input())
         parents = list(map(int, input().split()))
-        height = compute_height(n, parents)
-    elif (obamium == "F"):
+    elif obamium == "F":
         test_number = input()
         with open(f"test/{test_number}", "r") as file:
             n = int(file.readline().strip())
             parents = list(map(int, file.readline().strip().split()))
-            height = compute_height(n, parents)
     else:
         return
 
+    height = compute_height(n, parents)
     print(height)
 
 sys.setrecursionlimit(10**7)
