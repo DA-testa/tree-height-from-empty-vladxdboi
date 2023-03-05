@@ -29,15 +29,15 @@ def compute_height(tree, root):
 
 
 def main():
-    input = input().strip()
-    if input == "F":
+    inputs = input().strip()
+    if inputs == "F":
         file = input().strip()
         if file == "a":
             return
         with open(f"./test/{file}", mode="r") as obama:
             n, *var = map(int, obama.read().split())
             var = np.array(var)
-    elif input == "I":
+    elif inputs == "I":
         n, *var = map(int, input().strip().split())
         var = np.array(var)
     else:
