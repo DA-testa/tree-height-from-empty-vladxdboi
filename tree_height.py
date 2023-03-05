@@ -10,10 +10,7 @@ def compute_height(n, parents):
     def depthium(node):
         if depth[node] != 0:
             return depth[node]
-
-        depth[node] = 1 + depthium(parents[node]) 
-            if parents[node] != -1 
-                else 1
+        depth[node] = 1 + depthium(parents[node]) if parents[node] != -1 else 1
         return depth[node]
     
     for i in range(n):
